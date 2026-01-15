@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.cursor/
+
+# ComfyUI specific (optional, if testing locally inside comfy)
+/input/
+/output/
+/temp/
+
+# OS
+.DS_Store
+Thumbs.db
