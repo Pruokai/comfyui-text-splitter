@@ -1,18 +1,18 @@
-# Change: Add Text Splitter Node
+# 变更: 添加文本拆分节点
 
-## Why
-Users need a way to ingest text files and split them into processable chunks (e.g., lines or numbered items) to drive batch workflows (loops) in ComfyUI.
+## 原因 (Why)
+用户需要一种方法来摄入文本文件，并将其拆分为可处理的块（例如，行或编号项），以驱动 ComfyUI 中的批处理工作流（循环）。
 
-## What Changes
-- Create a new ComfyUI custom node structure.
-- Implement `TextFileSplitter` node.
-- Support splitting by:
-  - Newline (`\n`)
-  - Numbered List (Regex `^\d+[\.\、]\s*`)
-- Outputs compatible with list processing nodes (e.g., standard `LIST` type or custom loop types).
+## 变更内容 (What Changes)
+- 创建新的 ComfyUI 自定义节点结构。
+- 实现 `TextFileSplitter` 节点。
+- 支持通过以下方式拆分：
+  - 换行符 (`\n`)
+  - 编号列表 (正则 `^\d+[\.\、]\s*`)
+- 输出与列表处理节点兼容（例如标准 `LIST` 类型或自定义循环类型）。
 
-## Impact
-- **New Capability**: Text file ingestion and splitting.
-- **Affected Files**:
-  - `__init__.py` (New)
-  - `nodes.py` (New)
+## 影响 (Impact)
+- **新能力**: 文本文件摄入和拆分。
+- **受影响文件**:
+  - `__init__.py` (新增)
+  - `nodes.py` (新增)

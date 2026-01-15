@@ -15,23 +15,23 @@ class TextFileSplitter:
 
     RETURN_TYPES = ("STRING", "INT")
     RETURN_NAMES = ("text_list", "count")
-    OUTPUT_IS_LIST = (True, False) # text_list is a list, count is not
+    OUTPUT_IS_LIST = (True, False) # text_list 是列表，count 不是
     FUNCTION = "process_file"
     CATEGORY = "utils/text"
 
     def process_file(self, file_path, split_method, encoding, strip_whitespace):
         if not os.path.exists(file_path):
-            # Try looking in ComfyUI input directory if relative path
-            # But for now, just return empty list or raise error
-            # We will assume absolute path or handle error gracefully
-            print(f"File not found: {file_path}")
+            # 尝试在 ComfyUI 输入目录中查找（如果是相对路径）
+            # 但目前直接返回空列表或报错
+            # 我们假设是绝对路径或优雅地处理错误
+            print(f"文件未找到: {file_path}")
             return ([], 0)
 
         try:
             with open(file_path, 'r', encoding=encoding) as f:
                 content = f.read()
         except Exception as e:
-            print(f"Error reading file: {e}")
+            print(f"读取文件出错: {e}")
             return ([], 0)
 
         result_list = []
@@ -46,19 +46,14 @@ class TextFileSplitter:
                 result_list.append(line)
         
         elif split_method == "numbered_list":
-            # Split by patterns like "1. ", "2. ", "1、"
-            # Regex: look for newline followed by digit + dot/comma
-            # Or just start of string
-            # Strategy: find all matches of the pattern, then slice text
-            
-            # Pattern: (Start of line)(Digits)(Dot or Chinese Comma)(Whitespace)
-            # We use re.split but need to keep content.
-            # Simpler: Iterate lines and group
+            # 按 "1. ", "2. ", "1、" 等模式拆分
+            # 正则表达式：查找换行符后跟数字+点/顿号
+            # 或者字符串开头
             
             lines = content.split('\n')
             current_item = []
             
-            # Regex for start of a numbered item: ^\d+[.、]\s*
+            # 匹配编号项开头的正则: ^\d+[.、]\s*
             pattern = re.compile(r'^\d+[.、]\s*')
             
             for line in lines:
@@ -67,42 +62,35 @@ class TextFileSplitter:
                     continue
                 
                 if pattern.match(stripped_line):
-                    # If we have a current item accumulating, save it
+                    # 如果当前已有累积的内容，先保存
                     if current_item:
                         result_list.append("\n".join(current_item))
                         current_item = []
                     
-                    # Remove the numbering for the content? 
-                    # Usually users want the content. Let's strip the numbering.
-                    # Or keep it? The prompt implies splitting "according to... inputs". 
-                    # Usually clean content is preferred. Let's keep full line for now or optional?
-                    # Let's keep the full line to be safe, or just the content. 
-                    # "Splitting text content" implies getting the items.
-                    # Let's clean the number marker to make it clean.
+                    # 是否去除内容的编号？
+                    # 通常用户只想要内容。让我们去除编号标记。
                     clean_line = pattern.sub('', stripped_line, count=1)
                     current_item.append(clean_line)
                 else:
-                    # Append to current item (multiline content within a numbered item)
+                    # 追加到当前项（编号项内的多行内容）
                     if current_item:
                         current_item.append(stripped_line)
                     else:
-                        # Content before first number, or simple append if treating as loose text
-                        # If we assume the file IS a numbered list, this might be preamble.
-                        # We'll skip preamble if result_list is empty.
+                        # 第一个编号之前的内容，或者如果未视为编号列表则简单追加
                         pass
             
-            # Append last item
+            # 追加最后一项
             if current_item:
                 result_list.append("\n".join(current_item))
 
         count = len(result_list)
         return (result_list, count)
 
-# Mapping for __init__.py
+# 映射到 __init__.py
 NODE_CLASS_MAPPINGS = {
     "TextFileSplitter": TextFileSplitter
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "TextFileSplitter": "Text File Splitter"
+    "TextFileSplitter": "文本文件拆分 (Text File Splitter)"
 }

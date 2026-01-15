@@ -1,13 +1,13 @@
-# ComfyUI Text Processing Nodes
+# ComfyUI 文本处理节点
 
-## Purpose
-Provide utility nodes for text processing in ComfyUI, specifically focused on file handling and batch processing workflows.
+## 目的
+提供 ComfyUI 的文本处理实用节点，特别专注于文件处理和批处理工作流。
 
-## Tech Stack
+## 技术栈
 - Python 3.x
-- ComfyUI Custom Node API
+- ComfyUI 自定义节点 API
 
-## Conventions
-- Class names in CamelCase
-- Category: `utils/text`
-- Python type hints used extensively
+## 约定
+- 类名使用 CamelCase（驼峰命名法）
+- 类别: `utils/text`
+- 广泛使用 Python 类型提示
