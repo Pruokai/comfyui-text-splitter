@@ -20,7 +20,7 @@
    ```
 2. 克隆此仓库：
    ```bash
-   git clone https://github.com/YOUR_USERNAME/comfyui-text-splitter.git
+   git clone https://github.com/Pruokai/comfyui-text-splitter.git
    ```
 3. 重启 ComfyUI。
 
